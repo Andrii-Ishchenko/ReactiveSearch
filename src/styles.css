@@ -1,0 +1,21 @@
+html,body {
+    height: 100%;
+}
+
+.graph-properties {
+    height: 14em;
+    width: 97%;
+    margin: auto;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.board {
+    width: 100%;
+    height: 70%;
+}
+
+.graph-cut {
+    width: 100%;
+    height: 100%;
+}
