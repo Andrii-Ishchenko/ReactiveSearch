@@ -4,15 +4,33 @@ export default function parseGraph(str){
 
     var arr = str.trim().split(/\s+/)
 
-    let N = arr[0];
-    let edges_count = arr[1];
+    let vertices_count = parseInt(arr[0]);
+    let edges_count = parseInt(arr[1]);
 
-    console.log(N+"|"+edges_count);
+    console.log(vertices_count+"|"+edges_count);
 
+    var g = new Graph(vertices_count, edges_count);
+    let from_arr = new Array(edges_count);
+    let to_arr = new Array(edges_count);
+    let weights = new Array(edges_count);
+    let from, to, w;
     for(let i = 0; i < edges_count; i++ )
     {
-        console.log(arr[2 + 3*i] + " " + arr[2 + 3*i+1]);
+        from = parseInt(arr[2 + 3*i]);
+        from--;
+
+        to = parseInt(arr[2 + 3*i + 1]);       
+        to--;
+
+        w = parseInt(arr[2 + 3*i + 2]);
+
+        console.log(from + "->" + to);
+        from_arr[i] = from;
+        to_arr[i] = to;
+        weights[i] = w;
+        //g.connect(from, to, 1);
     }
 
-    return new Graph(N,edges_count);
+    g.add_conections(from_arr, to_arr, weights);
+    return g;
 }
