@@ -3,7 +3,7 @@ html,body {
 }
 
 .graph-properties {
-    height: 14em;
+    height: 7em;
     width: 97%;
     margin: auto;
     margin-top: 6px;
@@ -12,7 +12,7 @@ html,body {
 
 .board {
     width: 100%;
-    height: 70%;
+    height: 80%;
 }
 
 .graph-cut {

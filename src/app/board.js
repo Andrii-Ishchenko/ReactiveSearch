@@ -1,5 +1,5 @@
 export class Board {
-    constructor(graph,canvas,state, vertical_elem) {
+    constructor(graph,canvas,state, vertical_elem, edges_elem) {
         this.canvas = canvas;
         this.ctx = this.canvas.getContext("2d");;
         this.graph = graph;      
@@ -8,17 +8,35 @@ export class Board {
         this.vertical_elem = vertical_elem;
         this.vertical_orientation = false;
         this.change_orietation(false);
+
+        this.drawedges_elem = edges_elem;
+        this.draw_edges =false;
+        this.change_drawEdges(false);
         console.dir(this);    
     }
 
     change_orietation(draw){
         this.vertical_orientation = this.vertical_elem.checked;
-        if (draw) this.draw();
+
+
+        if (draw){
+            this.resize();
+            this.draw();
+        }
     }
 
-    init() {      
-        this.canvas = document.getElementById("graph-cut");
-        this.canvas.style.width = '50%';
+    change_drawEdges(draw){
+        this.draw_edges = this.drawedges_elem.checked
+        if (draw) this.draw()
+    }
+
+    resize() {
+        if(this.vertical_orientation){
+            this.canvas.style.width = '100%';
+        }else{
+            this.canvas.style.width = '50%';
+        }   
+
         this.canvas.style.height = '100%';
         this.canvas.height = this.canvas.offsetHeight;
         this.canvas.width = this.canvas.offsetWidth;
@@ -39,11 +57,21 @@ export class Board {
                 
                 this.ctx.beginPath();
                 if (this.state.X[i]) {
-                    this.ctx.arc(offsetW + stepW * (i + 1), this.canvas.height - offsetH , 3, 0, 2 * Math.PI);
+                    this.ctx.arc(offsetW + stepW * (i + 1), this.canvas.height - offsetH, 3, 0, 2 * Math.PI);
                     this.ctx.stroke();
+
+                    if(this.draw_edges){
+                        let edges = this.graph.getEdgesFrom(i, this.state);
+                        edges.forEach(j => {   
+                            this.ctx.beginPath();
+                            this.ctx.moveTo(offsetW + stepW * (i + 1), this.canvas.height - offsetH)
+                            this.ctx.lineTo(offsetW + stepW * (j + 1), offsetH);
+                            this.ctx.stroke();
+                        })
+                    }  
                 }
                 else {
-                    this.ctx.arc(offsetW + stepW * (i + 1), offsetH , 3, 0, 2 * Math.PI);                
+                    this.ctx.arc(offsetW + stepW * (i + 1), offsetH, 3, 0, 2 * Math.PI);                
                     this.ctx.fill();
                 }
             }
@@ -58,6 +86,9 @@ export class Board {
             let R = 0.8 * Math.min(centerX, centerY);
             let R2 = 0.85 * Math.min(centerX, centerY);
             this.ctx.font = "20px serif";
+
+
+
             for (let i = 0; i < this.graph.N_vertices; i++) {
                 
                 this.ctx.beginPath();
@@ -65,14 +96,15 @@ export class Board {
                     this.ctx.arc(this.canvas.width - offsetW, offsetH + stepH * (i + 1), 3, 0, 2 * Math.PI);
                     this.ctx.stroke();
 
-                    let edges = this.graph.getEdgesFrom(i, this.state);
-                    edges.forEach(j => {   
-                        this.ctx.beginPath();
-                        this.ctx.moveTo(this.canvas.width - offsetW, offsetH + stepH * (i + 1))
-                        this.ctx.lineTo(offsetW, offsetH + stepH * (j + 1));
-                        this.ctx.stroke();
-                    })
-
+                    if(this.draw_edges){
+                        let edges = this.graph.getEdgesFrom(i, this.state);
+                        edges.forEach(j => {   
+                            this.ctx.beginPath();
+                            this.ctx.moveTo(this.canvas.width - offsetW, offsetH + stepH * (i + 1))
+                            this.ctx.lineTo(offsetW, offsetH + stepH * (j + 1));
+                            this.ctx.stroke();
+                        })
+                    }               
                 }
                 else {
                     this.ctx.arc(offsetW, offsetH + stepH * (i + 1), 3, 0, 2 * Math.PI);
