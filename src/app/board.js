@@ -1,3 +1,4 @@
+
 export class Board {
     constructor(graph,canvas,state, vertical_elem, edges_elem) {
         this.canvas = canvas;
@@ -17,7 +18,6 @@ export class Board {
 
     change_orietation(draw){
         this.vertical_orientation = this.vertical_elem.checked;
-
 
         if (draw){
             this.resize();
@@ -44,6 +44,11 @@ export class Board {
 
     updateF(){
         document.getElementById("f-value").innerText = this.state.F;
+    }
+
+    update(){
+        this.updateF();
+        this.draw();
     }
 
     draw() {

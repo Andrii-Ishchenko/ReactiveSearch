@@ -93,5 +93,30 @@ export class Graph {
         }
         return output;
     }
+
+    getDeltaF(i, state){
+        var k=0, delta=0;
+        if(state.X[i] == 1){
+            for(let j = this.beg_list_edges[i]; j < this.beg_list_edges[i+1]; j++){
+                k = this.list_nodes_var[j];
+
+                if(state.X[k] == 0)
+                    delta -= this.edges_weight[this.list_edges_var[j]]
+                else 
+                    delta += this.edges_weight[this.list_edges_var[j]]
+            }
+        }
+        else {
+            for(let j = this.beg_list_edges[i]; j < this.beg_list_edges[i+1]; j++){
+                k = this.list_nodes_var[j];
+
+                if(state.X[k] == 0)
+                    delta += this.edges_weight[this.list_edges_var[j]]
+                else 
+                    delta -= this.edges_weight[this.list_edges_var[j]]
+            }
+         }
+         return delta;
+    }
 }
  

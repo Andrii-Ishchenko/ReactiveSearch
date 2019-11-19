@@ -19,12 +19,16 @@
     <div class="graph-properties">
         <form >
             Load graph: <input type="file" id="graph-file" /> 
+            <input type="checkbox" name="graph-binary-weights" id="graph-binary-weights">
+            <label for="graph-binary-weights">Binary weights</label>
             <div>
                 <input type="checkbox" name="graph-orientation" id="graph-orientation">
                 <label for="graph-orientation">Vertical</label>
                 <input type="checkbox" name="graph-edges" id="graph-edges">
                 <label for="graph-edges">Draw Edges</label>
                 <button id="newX" type="button">New X</button>
+                <button id="tabu_make_step" type="button">Next Tabu Step</button>
+                <button id="tabu_run" type="button">Run</button>
             </div>
         </form>
     </div>

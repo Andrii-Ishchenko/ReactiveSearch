@@ -1,6 +1,6 @@
 import {Graph} from './graph.js'
 
-export default function parseGraph(str){
+export default function parseGraph(str, binaryWeights){
 
     var arr = str.trim().split(/\s+/)
 
@@ -14,23 +14,40 @@ export default function parseGraph(str){
     let to_arr = new Array(edges_count);
     let weights = new Array(edges_count);
     let from, to, w;
-    for(let i = 0; i < edges_count; i++ )
-    {
-        from = parseInt(arr[2 + 3*i]);
-        from--;
 
-        to = parseInt(arr[2 + 3*i + 1]);       
-        to--;
+    if(binaryWeights){
+        for(let i = 0; i < edges_count; i++ )
+        {
+            from = parseInt(arr[2 + 2*i]);
+            from--;
 
-        w = parseInt(arr[2 + 3*i + 2]);
+            to = parseInt(arr[2 + 2*i + 1]);       
+            to--;         
 
-        console.log(from + "->" + to);
-        from_arr[i] = from;
-        to_arr[i] = to;
-        weights[i] = w;
-        //g.connect(from, to, 1);
+            //console.log(from + "->" + to);
+            from_arr[i] = from;
+            to_arr[i] = to;
+            weights[i] = 1;
+        }
     }
-
+    else {
+        for(let i = 0; i < edges_count; i++ )
+        {
+            from = parseInt(arr[2 + 3*i]);
+            from--;
+    
+            to = parseInt(arr[2 + 3*i + 1]);       
+            to--;
+    
+            w = parseInt(arr[2 + 3*i + 2]);
+    
+           // console.log(from + "->" + to);
+            from_arr[i] = from;
+            to_arr[i] = to;
+            weights[i] = w;
+        }
+    }
+    
     g.add_conections(from_arr, to_arr, weights);
     return g;
 }
