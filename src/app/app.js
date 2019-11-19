@@ -16,7 +16,7 @@ async function onFileSelected(e){
     var vertical = document.getElementById('graph-orientation')
     var edges = document.getElementById('graph-edges')
     var canvas = document.getElementById("graph-cut");
-   var newX = document.getElementById('newX');
+    var newX = document.getElementById('newX');
     var state = new State(graph.N_vertices);
     state.random();
 
@@ -31,12 +31,14 @@ async function onFileSelected(e){
     vertical.addEventListener("change", () => board.change_orietation(true), false)
     edges.addEventListener("change", () => board.change_drawEdges(true), false)
     
-    newX.addEventListener("click", ()=>{
-      state.random();
-      graph.calculateF(state);
-      board.updateF();
-      board.draw();
-    },false)
+    newX.addEventListener("click", 
+      () => {
+        state.random();
+        graph.calculateF(state);
+        board.updateF();
+        board.draw();
+      }
+      ,false)
 
 }
 
