@@ -17,9 +17,17 @@
     </nav>
 
     <div class="graph-properties">
-        <form ac>
-            Load graph: <input type="file" id="graph-file" />
+        <form >
+            Load graph: <input type="file" id="graph-file" /> 
+            <div>
+                <input type="checkbox" name="graph-orientation" id="graph-orientation">
+                <label for="graph-orientation">Vertical</label>
+            </div>
         </form>
+    </div>
+    <div>
+        <label>F: </label>
+        <span id="f-value"></span>
     </div>
     <div class="board">
         <canvas id="graph-cut"> </canvas>

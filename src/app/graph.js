@@ -65,5 +65,33 @@ export class Graph {
         return (this.edges_weight[v1,v2] != 0);
 
     }
+
+    calculateF(state){
+        var f = 0;
+        for(let i=0; i< this.N_vertices; i++){
+            if(state.X[i] == 1){
+                for(let j = this.beg_list_edges[i]; j < this.beg_list_edges[i+1]; j++){
+                        let k = this.list_nodes_var[j];
+                        if(state.X[k] == 0){
+                            f += this.edges_weight[this.list_edges_var[j]];
+                        }
+
+                }
+            }
+        }
+        state.F = f;
+    }
+
+    getEdgesFrom(i, state){
+        var output=[];
+        if(state.X[i]){
+            for(let j = this.beg_list_edges[i]; j < this.beg_list_edges[i+1]; j++){
+                let k = this.list_nodes_var[j];
+                    if(state.X[k] == 0) 
+                        output.push(k);                  
+            }
+        }
+        return output;
+    }
 }
  
